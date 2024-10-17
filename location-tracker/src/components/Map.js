@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Use the default marker icon provided by Leaflet
+// Fix Leaflet's default icon issue
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -17,7 +17,7 @@ function Map({ location }) {
 
   function ChangeMapView({ center }) {
     const map = useMap();
-    map.setView(center, 13);
+    map.setView(center, 13);  // Set the zoom level
     return null;
   }
 

@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f4f7f6;
+  background-color: #eef2f3;
 }
 
 h1 {
@@ -12,13 +12,14 @@ h1 {
   margin: 20px 0;
   font-size: 2.5rem;
   color: #333;
+  letter-spacing: 1px;
 }
 
 /* Search Bar Styles */
 form {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 input {
@@ -34,7 +35,7 @@ input {
 input:focus {
   outline: none;
   border-color: #2a9d8f;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button {
@@ -47,11 +48,17 @@ button {
   margin-left: 10px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #21867a;
+  transform: translateY(-2px);
+}
+
+button:active {
+  background-color: #1b6a63;
+  transform: translateY(0);
 }
 
 /* Map Styles */
@@ -62,16 +69,25 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+}
+
+#map:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* For Mobile Responsiveness */
 @media screen and (max-width: 600px) {
   input {
-    width: 70%;
+    width: 80%;
   }
 
   button {
     width: auto;
     padding: 10px 15px;
+  }
+
+  #map {
+    width: 100%;
   }
 }
