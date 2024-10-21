@@ -1,93 +1,163 @@
-/* Global Styles */
+/* Global styles */
 body {
-  font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #eef2f3;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f4f8; /* Light background for contrast */
+  color: #333; /* Dark text for readability */
 }
 
+/* Container for the app */
+.App {
+  max-width: 1200px; /* Max width for larger screens */
+  margin: 0 auto; /* Center the app horizontally */
+  padding: 20px; /* Padding around the app */
+  background-color: #fff; /* White background for content */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Heading style */
 h1 {
   text-align: center;
-  margin: 20px 0;
-  font-size: 2.5rem;
-  color: #333;
-  letter-spacing: 1px;
+  color: #4a90e2; /* Soft blue color */
+  font-size: 2.5rem; /* Larger heading */
+  margin-bottom: 20px;
 }
 
-/* Search Bar Styles */
+/* Search bar styles */
 form {
   display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+  justify-content: space-between; /* Align inputs and button in a row */
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Allow wrapping for mobile */
 }
 
-input {
-  width: 300px;
-  padding: 12px 15px;
+input[type="text"] {
+  flex: 1; /* Inputs grow to fill space */
+  padding: 12px;
+  margin-right: 10px; /* Spacing between inputs */
+  border: 2px solid #ccc;
+  border-radius: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  transition: border-color 0.3s ease;
 }
 
-input:focus {
+input[type="text"]:focus {
+  border-color: #4a90e2; /* Change border color on focus */
   outline: none;
-  border-color: #2a9d8f;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button {
   padding: 12px 20px;
-  background-color: #2a9d8f;
-  color: white;
-  font-size: 16px;
+  background-color: #4a90e2;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  margin-left: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #21867a;
-  transform: translateY(-2px);
+  background-color: #357ABD; /* Darker shade on hover */
 }
 
-button:active {
-  background-color: #1b6a63;
-  transform: translateY(0);
+/* Main container for the map and route instructions */
+.map-container {
+  display: flex;
+  justify-content: space-between; /* Space between map and instructions */
+  gap: 30px; /* Gap between map and instructions */
+  margin-top: 30px;
+  flex-wrap: wrap; /* Allow wrapping on mobile */
 }
 
-/* Map Styles */
+/* Map section */
+.map-section {
+  flex: 3; /* Larger part for the map */
+  height: 700px; /* Increased height for larger map */
+  border: 2px solid #e0e0e0; /* Light border around the map */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow around map */
+}
+
+/* Leaflet map styles */
 #map {
-  height: 500px;
-  width: 90%;
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
-  transition: all 0.3s ease-in-out;
+  height: 100%;
+  width: 100%;
 }
 
-#map:hover {
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+/* Route instructions container */
+.route-instructions {
+  flex: 1; /* Smaller part for route instructions */
+  background-color: #f9fbfc; /* Light background */
+  border: 2px solid #e0e0e0; /* Light border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  max-height: 700px; /* Same height as the map */
 }
 
-/* For Mobile Responsiveness */
-@media screen and (max-width: 600px) {
-  input {
-    width: 80%;
+.route-instructions h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.route-instructions p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Travel time paragraph */
+p {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2rem; /* Slightly smaller heading for mobile */
+  }
+
+  form {
+    flex-direction: column; /* Stack inputs vertically */
+  }
+
+  input[type="text"] {
+    margin-bottom: 10px; /* Space between inputs on mobile */
+    margin-right: 0; /* Remove right margin */
   }
 
   button {
-    width: auto;
-    padding: 10px 15px;
+    width: 100%; /* Full-width button for mobile */
   }
 
-  #map {
-    width: 100%;
+  .map-container {
+    flex-direction: column; /* Stack map and instructions vertically */
+    gap: 20px; /* Reduce gap for mobile */
+  }
+
+  .map-section, .route-instructions {
+    flex: 1; /* Make them take equal width */
+    height: 400px; /* Reduce height for smaller screens */
+  }
+
+  .route-instructions {
+    max-height: 400px; /* Match the new height */
+  }
+
+  p {
+    font-size: 1.1rem; /* Slightly smaller travel time text */
   }
 }

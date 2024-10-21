@@ -1,40 +1,54 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function SearchBar({ setLocation }) {
-  const [query, setQuery] = useState('');
+function SearchBar({ setStartLocation, setEndLocation }) {
+  const [startQuery, setStartQuery] = useState('');
+  const [endQuery, setEndQuery] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (query.trim() === '') return;
+    if (startQuery.trim() === '' || endQuery.trim() === '') return;
 
-    // Use Nominatim API to get the latitude and longitude of the specific location
-    const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`;
+    // Nominatim API to get the latitude and longitude for both locations
+    const startUrl = `https://nominatim.openstreetmap.org/search?q=${startQuery}&format=json&limit=1`;
+    const endUrl = `https://nominatim.openstreetmap.org/search?q=${endQuery}&format=json&limit=1`;
 
-    axios
-      .get(url)
-      .then((response) => {
-        if (response.data.length > 0) {
-          const { lat, lon } = response.data[0];
-          setLocation({ lat: parseFloat(lat), lon: parseFloat(lon) });
-        } else {
-          alert('Location not found. Please try a more specific query.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching the location:', error);
-      });
+    axios.get(startUrl).then((startResponse) => {
+      if (startResponse.data.length > 0) {
+        const { lat: startLat, lon: startLon } = startResponse.data[0];
+        setStartLocation({ lat: parseFloat(startLat), lon: parseFloat(startLon) });
+
+        axios.get(endUrl).then((endResponse) => {
+          if (endResponse.data.length > 0) {
+            const { lat: endLat, lon: endLon } = endResponse.data[0];
+            setEndLocation({ lat: parseFloat(endLat), lon: parseFloat(endLon) });
+          } else {
+            alert('End location not found. Please try a more specific query.');
+          }
+        });
+      } else {
+        alert('Start location not found. Please try a more specific query.');
+      }
+    }).catch((error) => {
+      console.error('Error fetching the location:', error);
+    });
   };
 
   return (
     <form onSubmit={handleSearch}>
       <input
         type="text"
-        placeholder="Enter city or specific location"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Enter starting location"
+        value={startQuery}
+        onChange={(e) => setStartQuery(e.target.value)}
       />
-      <button type="submit">Search</button>
+      <input
+        type="text"
+        placeholder="Enter destination"
+        value={endQuery}
+        onChange={(e) => setEndQuery(e.target.value)}
+      />
+      <button type="submit">Calculate Distance</button>
     </form>
   );
 }
